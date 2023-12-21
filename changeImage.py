@@ -18,7 +18,8 @@ for im in file_list:
   if 'tiff' in im:
     # put the filename with the absolute path
     file_path = os.path.join(image_dir, im)
-    # in script test
+    
+    # TEST file_path var
     # print(file_path)
     # open the file
     im_src = Image.open(file_path)
@@ -29,13 +30,14 @@ for im in file_list:
     # Use convert("RGB") method for converting RGBA to RGB image.
     conv_im = im_src.convert('RGB')
 
-    # resize file
+    # resize file and set it the fin_im
     fin_im = conv_im.resize(new_size)
 
-    # set the file extenstion as JPEG in the destination folder
-    # we are splitting the filename into two parts, name and file type and appending .jpg to the name
-    # joining the new file name with destionation folder and setting it to a new variable
+    # create a variable consisting of path and file name including jpg extension
+    # I'm using the variable image_dir as my destination path,
+    # I'm splitting the original filename from variable im in my for loop, ex. 007.tiff,
+    # use the first part of the name at index position 0 and adding .jpeg
     destination_path = os.path.join(image_dir, os.path.splitext(im)[0] + '.jpeg')
 
-    # save file
+    # save the finished image file
     fin_im.save(destination_path)
