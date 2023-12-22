@@ -12,16 +12,19 @@ def read_data(folder_path):
         if filename.endswith(".txt"):
             file_path = os.path.join(folder_path, filename)
             with open(file_path, "r") as file:
+                # store text data as a list of strings
                 file_lines = file.readlines()
+                # validate length of list
                 if len(file_lines) >= 2:
-                # Separating the fruit name and the numerical data for weight from the first two lines
+                # Pull the fruit name from line 1 and weight from line 2
                     name = file_lines[0].strip()
                     weight = file_lines[1].strip()
-                # Formatting data and adding the name and weight variables
+                # appending the data variable with the extracted data
                     data += f"<p>name: {name} <br/>weight: {weight}<br/><br/></p>"
                 else:
                     num_lines = len(file_lines)
                     print(f"The file {filename} contains {num_lines} lines.")
+    # return the data so it can be passed to the generate_report function
     return data
 
 if __name__ == "__main__":
@@ -29,11 +32,11 @@ if __name__ == "__main__":
     folder_path = "D:/files/CareerGrowth/GoogleITAutomationPython/PythonAutomation_Git/PyAuto_Course6Mod4/supplier-data/descriptions"
     # name and destination for new pdf file
     output_pdf = "D:/files/CareerGrowth/GoogleITAutomationPython/PythonAutomation_Git/PyAuto_Course6Mod4/supplier-data/processed.pdf"
-    # grabbing the date at execution
+    # getting date of file execution
     current_date = datetime.now().strftime("%B %d, %Y")
-    # including the date in the report title
+    # creating a report title for the pdf
     report_title = f"Processed Update on {current_date}"
-    # call the read_data function and passes the supplier file location
+    # call the read_data function so we can build the pdf's paragraph content
     report_paragraph = read_data(folder_path)
-    # generates the actual pdf
+    # calling the function to generate a pdf with the provided parameters
     generate_report(output_pdf, report_title, report_paragraph)
