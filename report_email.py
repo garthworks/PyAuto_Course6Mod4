@@ -13,10 +13,10 @@ def read_data(folder_path):
             file_path = os.path.join(folder_path, filename)
             with open(file_path, "r") as file:
                 file_content = file.read()
-                # Extracting name and weight from file content
+                # Separating the fruit name and the numerical data for weight from the first two lines
                 name = file_content.split('\n')[0].strip()
                 weight = file_content.split('\n')[0].strip()
-                # Formatting data
+                # Formatting data and adding the name and weight variables
                 data += f"<p>name: {name} <br/>weight: {weight}<br/><br/></p>"
   
     return data
