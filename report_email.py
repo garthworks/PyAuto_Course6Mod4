@@ -3,6 +3,8 @@
 import os
 from datetime import datetime
 from reports import generate_report
+from emails import generate_email
+from emails import send_email
 
 # iterates over the txt file, sets the first line to name, the second line to weight
 # add that onto the same string with the proper line breaks to create format
@@ -40,3 +42,11 @@ if __name__ == "__main__":
     report_paragraph = read_data(folder_path)
     # calling the function to generate a pdf with the provided parameters
     generate_report(output_pdf, report_title, report_paragraph)
+    # set parameters to pass to generate_email function
+    sender = "automation@example.com"
+    recipient = "student@example.com"
+    subject = "Upload Complete - Online Fruit Store"
+    body =  "ll fruits are uploaded to our website successfully. A detailed list is attached to this email."
+    attachment_path = output_pdf
+    message = generate_email(sender, recipient, subject, body, attachment_path)
+    send_email(message)
