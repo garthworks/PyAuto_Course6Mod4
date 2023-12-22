@@ -12,13 +12,16 @@ def read_data(folder_path):
         if filename.endswith(".txt"):
             file_path = os.path.join(folder_path, filename)
             with open(file_path, "r") as file:
-                file_content = file.read()
+                file_lines = file.readlines()
+                if len(file_lines) >= 2:
                 # Separating the fruit name and the numerical data for weight from the first two lines
-                name = file_content.split('\n')[0].strip()
-                weight = file_content.split('\n')[0].strip()
+                    name = file_lines[0].strip()
+                    weight = file_lines[1].strip()
                 # Formatting data and adding the name and weight variables
-                data += f"<p>name: {name} <br/>weight: {weight}<br/><br/></p>"
-  
+                    data += f"<p>name: {name} <br/>weight: {weight}<br/><br/></p>"
+                else:
+                    num_lines = len(file_lines)
+                    print(f"The file {filename} contains {num_lines} lines.")
     return data
 
 if __name__ == "__main__":
