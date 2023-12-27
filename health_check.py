@@ -10,26 +10,32 @@ from emails import send_email
 def localhost_ip_check():
     host_ip = socket.gethostbyname('localhost') # get the IP
     if host_ip != 127.0.0.1
-        #set subject line, call email
+        #set subject line, send email
+        subject = "Error -localhost cannot be resolved to 127.0.0.1"
 
 
 # check cpu util is less than 80%
 def cpu_util():
     cpu_reading = psutil.cpu_percent(interval=1)
     if cpu_reading > 80
-        #set subject line, call email function
+        #set subject line, send email
+        subject = "Error - CPU usage is over 80%"
+        send_email(sender, recipient, subject, body)
 
 # check disk free space is greater than 20%
 psutil.disk_partitions()
+        # set subject line, send email
+        subject =  "Error - Available disk space is less than 20%"
 
 psutil.disk_usage('/')
 
 # check memory is greater than 500MB
-
+subject = "Error - Available memory is less than 100MB"
 
 if __name__ == "__main__":
     sender = "automation@example.com"
     recipient = "student@example.com"
-    body =  "EDIT HERE"
-    message = generate_email(sender, recipient, subject, body, attachment_path)
-    send_email(message)
+    body =  "Please check your system and resolve the issue as soon as possible."
+    # may not need to generate message or need to generate a message without an attachment
+    # message = generate_email(sender, recipient, subject, body)
+    # send_email(message)
