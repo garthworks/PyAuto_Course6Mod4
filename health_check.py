@@ -5,7 +5,7 @@ import shutil
 import socket
 from emails import generate_email
 from emails import send_email
-
+ 
 # check localhost resolves to 127.0.01
 def localhost_ip_check():
     host_ip = socket.gethostbyname('localhost') # get the IP
@@ -23,9 +23,17 @@ def cpu_util():
         send_email(sender, recipient, subject, body)
 
 # check disk free space is greater than 20%
-psutil.disk_partitions()
+def disk_space_check
+    path = "/"
+    data = shutil.disk_usage(path)
+    disk_cap = data[0]
+    disk_used = data[1]
+    used_per = (disk_used / disk_cap) * 100
+    if used_per > 80:
         # set subject line, send email
         subject =  "Error - Available disk space is less than 20%"
+        send_email(sender, recipient, subject, body)
+
 
 psutil.disk_usage('/')
 
