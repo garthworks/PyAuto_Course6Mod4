@@ -3,16 +3,16 @@
 import psutil
 import shutil
 import socket
-from emails import generate_email
-from emails import send_email
+import emails
  
 # check localhost resolves to 127.0.01
 def localhost_ip_check():
-    host_ip = socket.gethostbyname('localhost') # get the IP
-    if host_ip != 127.0.0.1
+    name = "localhost"
+    ip = socket.gethostbyname(name) # get the IP
+    if ip != 127.0.0.1
         #set subject line, send email
         subject = "Error -localhost cannot be resolved to 127.0.0.1"
-
+        email_alert(subject)
 
 # check cpu util is less than 80%
 def cpu_util():
@@ -20,10 +20,10 @@ def cpu_util():
     if cpu_reading > 80
         #set subject line, send email
         subject = "Error - CPU usage is over 80%"
-        send_email(sender, recipient, subject, body)
+        email_alert(subject)
 
 # check disk free space is greater than 20%
-def disk_space_check
+def disk_space_check():
     path = "/"
     data = shutil.disk_usage(path)
     disk_cap = data[0]
@@ -32,18 +32,29 @@ def disk_space_check
     if used_per > 80:
         # set subject line, send email
         subject =  "Error - Available disk space is less than 20%"
-        send_email(sender, recipient, subject, body)
+        email_alert(subject))
 
+# check available memory is greater than 100MB
+def memory_avail():
+    mem_free = psutil.virtual_memory().available
+    mem_free = mem_free / (1024 ** 2)
+    if mem_free < 100:
+        subject = "Error - Available memory is less than 100MB"
+        email_alert(subject)
 
-psutil.disk_usage('/')
-
-# check memory is greater than 500MB
-subject = "Error - Available memory is less than 100MB"
-
-if __name__ == "__main__":
+def email_alert(subject):
     sender = "automation@example.com"
     recipient = "student@example.com"
     body =  "Please check your system and resolve the issue as soon as possible."
+    email_alert = emails.generate_email(sender, recipient, subject, body)
+    emails.send_email(email_alert)
+
+
+if __name__ == "__main__":
+    localhost_ip_check()
+    cpu_util()
+    disk_space_check()
+    memory_avail()
     # may not need to generate message or need to generate a message without an attachment
     # message = generate_email(sender, recipient, subject, body)
     # send_email(message)
